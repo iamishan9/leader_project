@@ -147,7 +147,7 @@ void MyAppCode::recruitMessage(MessagePtr _msg, P2PNetworkInterface *sender) {
             myLeader = msgData.first;
             currentRound = msgData.second;
             parent = sender;
-            usleep(100000);
+            usleep(10000);
             module->setColor(int((myLeader * 27) % 10 + 1));
             isRecruited = true;
             interfaceStatus[module->getInterfaceBId(sender)] = 3;
@@ -502,8 +502,7 @@ void MyAppCode::acknowledgeCompete(MessagePtr _msg, P2PNetworkInterface *sender)
     } else {
         waitingFor = sender;
         getScheduler()->schedule(
-                new InterruptionEvent(getScheduler()->now() + 100, // example delay in micro s
-                                      module, COMPETE_WAIT));
+                new InterruptionEvent(getScheduler()->now() + 100, module, COMPETE_WAIT));
     }
 }
 
